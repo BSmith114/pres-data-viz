@@ -18,10 +18,20 @@ sql.counties = `
         vote`;
 
         
-db.all(sql.counties, [], (err, rows) => {
+let getCounties = function() {
+    db.all(sql.counties, [], (err, row) => {
     if (err) {
         throw err;
     }
     console.log(rows)
 })
+};
 
+let getElections = function () {
+    db.all(`select distinct election from vote`, [], (err, row) => {
+    elections = [];
+    row.forEach(data => {
+        elections.push(data.election)
+    });
+    console.log(elections);
+})};
