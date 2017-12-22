@@ -26,7 +26,7 @@ function getCounties() {
     counties.empty()
     $.get('/api/get-counties?state=' + encodeURI(state), function(data) {
         data.forEach(function(county) {
-            counties.append($('<option>').text(county[1]))
+            counties.append($('<option>').text(county))
         })
     })
 }
@@ -72,9 +72,9 @@ function getCountyResultsByState() {
         data.forEach(function(result) {
             let row = $('<tr>')
                 .append($('<td>').text(result.county))
-                .append($('<td>').text(parseInt(result.dem).toLocaleString() + '\n' + result.dem_per + '%'))
-                .append($('<td>').text(parseInt(result.rep).toLocaleString() + '\n' + result.rep_per + '%'))
-                .append($('<td>').text(parseInt(result.other).toLocaleString()+ '\n' + result.oth_per + '%'))
+                .append($('<td>').text(parseInt(result.democrat).toLocaleString() + '\n' + result.democrat_percent + '%'))
+                .append($('<td>').text(parseInt(result.republican).toLocaleString() + '\n' + result.republican_percent + '%'))
+                .append($('<td>').text(parseInt(result.other).toLocaleString()+ '\n' + result.other_percent + '%'))
             $('#results-table > tbody').append(row)
         })
     })

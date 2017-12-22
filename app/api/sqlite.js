@@ -1,37 +1,79 @@
 const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
 
-let db = new sqlite3.Database(path.join(__dirname, '..', '..', 'db', 'vote.db'), sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        console.log(__dirname)
-        return console.error(err.message);
-    }
-    console.log('Connected to vote database.')
-});
-
-let sql = {};
-sql.counties = `
-    select distinct 
-        county
-        ,state 
-    from 
-        vote`;
-
-        
-let getCounties = function() {
-    db.all(sql.counties, [], (err, row) => {
-    if (err) {
-        throw err;
-    }
-    console.log(rows)
-})
+var getdb = function () {
+    let db = new sqlite3.Database(path.join(__dirname, '..', '..', 'db', 'vote.db'), sqlite3.OPEN_READWRITE, (err) => {
+        if (err) {
+            return console.error(err.message);
+        }
+    });
+    return db
 };
 
-let getElections = function () {
-    db.all(`select distinct election from vote`, [], (err, row) => {
-    elections = [];
-    row.forEach(data => {
-        elections.push(data.election)
-    });
-    console.log(elections);
-})};
+module.exports = {
+
+    getElections: function (req, res, next) {
+        // add error handling for failed db connex
+        let db = getdb()
+        db.all(`select distinct election from vote;`, [], (err, row) => {
+            elections = [];
+            row.forEach(data => {
+                elections.push(data.election)
+            });
+            res.status(200).send(elections);
+        })
+        db.close()
+    },
+
+    getStates: function (req, res, next) {
+        let db = getdb()
+        db.all(`select distinct state from vote order by state;`, [], (err, row) => {
+            states = []
+            row.forEach(data => {
+                states.push(data.state)
+            });
+            res.status(200).send(states);
+        })
+        db.close()
+    },
+    getCounties: function (req, res, next) {
+        let db = getdb()
+        let sql = `
+            select distinct county
+            from vote
+            where state = ?`
+        db.all(sql, [req.query.state], (err, row) => {
+            if (err) {
+                throw err;
+            }
+            counties = []
+            row.forEach(data => {
+                counties.push(data.county)
+            });            
+            res.status(200).send(counties)
+        })
+        db.close()
+    },
+    getStateResultsbyCounty: function(req, res, next ) {
+        let db = getdb()
+        let sql = `
+            select 
+                county
+                ,democrat
+                ,republican
+                ,other
+                ,printf("%.2f", cast(democrat_percent as real) * 100) as democrat_percent
+                ,printf("%.2f", cast(republican_percent as real) * 100) as republican_percent
+                ,printf("%.2f", cast(other_percent as real) * 100) as other_percent
+            from vote 
+            where state = ? and election = ?;`
+        db.all(sql, [req.body.state, req.body.election], (err, row) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }
+            res.status(200).send(row)            
+        });
+        db.close()
+    }
+};
