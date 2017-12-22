@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
 
-var getdb = function () {
+let getdb = function () {
     let db = new sqlite3.Database(path.join(__dirname, '..', '..', 'db', 'vote.db'), sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
             return console.error(err.message);
@@ -16,6 +16,10 @@ module.exports = {
         // add error handling for failed db connex
         let db = getdb()
         db.all(`select distinct election from vote;`, [], (err, row) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }            
             elections = [];
             row.forEach(data => {
                 elections.push(data.election)
@@ -28,6 +32,10 @@ module.exports = {
     getStates: function (req, res, next) {
         let db = getdb()
         db.all(`select distinct state from vote order by state;`, [], (err, row) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }            
             states = []
             row.forEach(data => {
                 states.push(data.state)
@@ -36,6 +44,7 @@ module.exports = {
         })
         db.close()
     },
+
     getCounties: function (req, res, next) {
         let db = getdb()
         let sql = `
@@ -44,7 +53,8 @@ module.exports = {
             where state = ?`
         db.all(sql, [req.query.state], (err, row) => {
             if (err) {
-                throw err;
+                throw(err)
+                res.status(400).send(err)
             }
             counties = []
             row.forEach(data => {
@@ -54,6 +64,7 @@ module.exports = {
         })
         db.close()
     },
+
     getStateResultsbyCounty: function(req, res, next ) {
         let db = getdb()
         let sql = `
