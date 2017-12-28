@@ -8,7 +8,7 @@ var routes = require('./app/routes');
 // configuration
 var db = require('./config/db')
 var port = process.env.PORT || 3000;
-const pool = new pg.Pool(db.dbConfig)
+// const pool = new pg.Pool(db.dbConfig)
 
 app.use(express.static(__dirname + '/public')); 
 app.use(methodOverride('X-HTTP-Method-Override')); 
