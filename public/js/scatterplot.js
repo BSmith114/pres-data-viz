@@ -30,7 +30,7 @@
         .orient("left")
         .ticks(10)
 
-    var scatterplot = d3.select("p.chart")
+    var scatterplot = d3.select("#plt")
         .append("svg")
         .attr("height", h)
         .attr("width", w)
