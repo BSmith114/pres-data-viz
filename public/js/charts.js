@@ -1,4 +1,4 @@
-(function () {
+function scatterPlot() {
 
     var w = 550;
     var h = 550;
@@ -59,4 +59,8 @@
         .attr("transform", "translate(" + ((w/2) -25 ) + ",0)")
         .call(yAxis);
 
-})();
+}
+
+function barPlot() {
+    
+}

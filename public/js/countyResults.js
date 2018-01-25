@@ -5,10 +5,10 @@ function getElections(callback) {
         data.forEach(function(year) {
             elections.append($('<option>').text(year))
         })
+        if (callback) {
+            callback()
+        }
     })
-    if (callback) {
-        callback()
-    }
 }  
 
 function getStates(callback) {
@@ -31,6 +31,7 @@ function getCounties() {
         data.forEach(function(county) {
             counties.append($('<option>').text(county))
         })
+        getCountyResultsByState()
     })
 }
 
@@ -53,9 +54,9 @@ function getCountyResultsByState() {
                 .append($('<td>').text(result.county))
                 .append($('<td>')
                     .css("background-color", result.democrat > result.republican ? "#9cc0e3" : "")
-                    .text(parseInt(result.democrat).toLocaleString()))
-                    .css("background-color", result.democrat < result.republican ? "#e99d98": "")
+                    .text(parseInt(result.democrat).toLocaleString()))     
                 .append($('<td>')
+                    .css("background-color", result.democrat < result.republican ? "#e99d98": "")
                     .text(parseInt(result.republican).toLocaleString()))
                 .append($('<td>').text(parseInt(result.other).toLocaleString()))
             $('#results-table > tbody').append(row)
