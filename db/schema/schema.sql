@@ -3,7 +3,7 @@ CREATE TABLE vote(
   "fips" INTEGER,
   "county" TEXT,
   "state" TEXT,
-  "election" TEXT,
+  "election" INTEGER,
   "democrat" INTEGER,
   "republican" INTEGER,
   "other" INTEGER,
