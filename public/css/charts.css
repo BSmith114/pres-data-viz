@@ -1,13 +1,16 @@
-.dem-county-win {
-    background-color: #9cc0e3;
-
+.barplot-dem-county-win {
+    fill: #9cc0e3;
+    stroke-width: 1px;
+    stroke: black; 
 }
 
-.gop-county-win {
-    background-color: #e99d98;
+.barplot-gop-county-win {
+    fill: #e99d98;
+    stroke-width: 1px;
+    stroke: black;    
 }
 
-.gop-county-flip {
+.barplot-gop-county-flip {
     background: repeating-linear-gradient(
         45deg,
         #e99d98,
@@ -17,7 +20,7 @@
     )
 }
 
-.gop-county-flip {
+.barplot-gop-county-flip {
     background: repeating-linear-gradient(
         45deg,
         #9cc0e3,

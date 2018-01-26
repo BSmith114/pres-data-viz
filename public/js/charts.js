@@ -64,5 +64,43 @@ function scatterPlot() {
 }
 
 function barPlot() {
-    
+    // empties current chart
+    let plt = $('#plt').empty()
+    plt.empty()
+
+    // get values from selections for params
+    let election = $('#elections option:selected').text()
+    let state = $('#states option:selected').text()
+
+    // posts data
+    $.post('/api/get-state-results-by-county', {state: state, election: election}, function(data) {
+        let w = 500
+        let h = data.length * 21
+        let p = 1
+
+        var plt = d3.select("#plt")
+            .append("svg")
+            .attr("height", h)
+            .attr("width", w)
+
+        plt.selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+                return d.democrat_margin_percent < 0 ? w / 2 + (parseFloat(d.democrat_margin_percent) * 200) : w / 2 
+            })
+            .attr("y", function(d, i) {
+                return i * 20
+            })
+            .attr("height", function(d, i) {
+                return 20
+            } )
+            .attr("width", function(d) { 
+                return Math.abs(parseFloat(d.democrat_margin_percent) * 200)
+            })
+            .attr("class", function(d) {
+                return d.democrat_margin_percent > 0 ? "barplot-dem-county-win" : "barplot-gop-county-win"
+            })        
+    })
 }

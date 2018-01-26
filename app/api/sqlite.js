@@ -65,6 +65,50 @@ module.exports = {
         db.close()
     },
 
+    getNationalResults: function(req, res, next ) {
+        let db = getdb()
+        let sql = `
+            select 
+                election
+                ,sum(democrat) as democrat
+                ,sum(republican) as republican
+                ,sum(other) as other
+            from vote 
+            where election = ?
+            group by
+                election;`
+        db.all(sql, [req.body.election], (err, row) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }
+            res.status(200).send(row)            
+        });
+        db.close()
+    },      
+
+    getStateResults: function(req, res, next ) {
+        let db = getdb()
+        let sql = `
+            select 
+                state
+                ,sum(democrat) as democrat
+                ,sum(republican) as republican
+                ,sum(other) as other
+            from vote 
+            where election = ?
+            group by
+                state;`
+        db.all(sql, [req.body.election], (err, row) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }
+            res.status(200).send(row)            
+        });
+        db.close()
+    },    
+
     getStateResultsbyCounty: function(req, res, next ) {
         let db = getdb()
         let sql = `
@@ -76,6 +120,7 @@ module.exports = {
                 ,printf("%.2f", cast(democrat_percent as real) * 100) as democrat_percent
                 ,printf("%.2f", cast(republican_percent as real) * 100) as republican_percent
                 ,printf("%.2f", cast(other_percent as real) * 100) as other_percent
+                ,democrat_margin_percent
             from vote 
             where state = ? and election = ?;`
         db.all(sql, [req.body.state, req.body.election], (err, row) => {

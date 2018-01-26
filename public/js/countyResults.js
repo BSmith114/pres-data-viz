@@ -38,10 +38,38 @@ function getCounties() {
 function getCountyResultsByState() {
     // get values from selections for params
     let election = $('#elections option:selected').text()
+    
+    // load html results table snippet 
+    $('#state-results').load('/snippets/results-table.html')
+
+    // empties the table 
+    let tbl = $('#results-table > tbody')
+    tbl.empty()
+
+    // posts data
+    $.post('/api/get-state-results', {election: election}, function(data) {
+        data.forEach(function(result) {
+            let row = $('<tr>')
+                .append($('<td>').text(result.county))
+                .append($('<td>')
+                    .css("background-color", result.democrat > result.republican ? "#9cc0e3" : "")
+                    .text(parseInt(result.democrat).toLocaleString()))     
+                .append($('<td>')
+                    .css("background-color", result.democrat < result.republican ? "#e99d98": "")
+                    .text(parseInt(result.republican).toLocaleString()))
+                .append($('<td>').text(parseInt(result.other).toLocaleString()))
+            $('#results-table > tbody').append(row)
+        })
+    })
+}
+
+function getCountyResultsByState() {
+    // get values from selections for params
+    let election = $('#elections option:selected').text()
     let state = $('#states option:selected').text()
     
     // load html results table snippet 
-    $('#tbl').load('/snippets/results-table.html')
+    $('#county-results').load('/snippets/results-table.html')
 
     // empties the table 
     let tbl = $('#results-table > tbody')
