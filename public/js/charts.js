@@ -1,5 +1,7 @@
 function scatterPlot() {
 
+    $('#plt').empty()
+    
     var w = 550;
     var h = 550;
     padding = 50;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
