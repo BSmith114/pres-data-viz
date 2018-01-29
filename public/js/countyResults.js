@@ -35,15 +35,15 @@ function getCounties() {
     })
 }
 
-function getCountyResultsByState() {
+function getStateResults() {
     // get values from selections for params
     let election = $('#elections option:selected').text()
     
     // load html results table snippet 
-    $('#state-results').load('/snippets/results-table.html')
-
+    $('#state-results').load('/snippets/state-results-table.html')
+    
     // empties the table 
-    let tbl = $('#results-table > tbody')
+    let tbl = $('#state-results-table > tbody')
     tbl.empty()
 
     // posts data
@@ -58,7 +58,7 @@ function getCountyResultsByState() {
                     .css("background-color", result.democrat < result.republican ? "#e99d98": "")
                     .text(parseInt(result.republican).toLocaleString()))
                 .append($('<td>').text(parseInt(result.other).toLocaleString()))
-            $('#results-table > tbody').append(row)
+            $('#state-results-table > tbody').append(row)
         })
     })
 }
