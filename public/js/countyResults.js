@@ -39,7 +39,7 @@ function getStateResults() {
     // get values from selections for params
     let election = $('#elections option:selected').text()
     
-    // load html results table snippet 
+    // // load html results table snippet 
     $('#state-results').load('/snippets/state-results-table.html')
     
     // empties the table 
@@ -50,7 +50,7 @@ function getStateResults() {
     $.post('/api/get-state-results', {election: election}, function(data) {
         data.forEach(function(result) {
             let row = $('<tr>')
-                .append($('<td>').text(result.county))
+                .append($('<td>').text(result.state))
                 .append($('<td>')
                     .css("background-color", result.democrat > result.republican ? "#9cc0e3" : "")
                     .text(parseInt(result.democrat).toLocaleString()))     
