@@ -1,12 +1,12 @@
 window.addEventListener('load', function() {
     $('#params').load('/snippets/params.html', function() {
         $('#elections').change(function() {
-            getCountyResultsByState()
+            getStateResults()
         });
-        $('#states').change(function() {
-            getCounties()
-            getCountyResultsByState()
-        });
+        // $('#states').change(function() {
+        //     getCounties()
+        //     getCountyResultsByState()
+        // });
         getElections();
         getStates();
         

@@ -75,7 +75,7 @@ function barPlot() {
     // posts data
     $.post('/api/get-state-results-by-county', {state: state, election: election}, function(data) {
         let w = 500
-        let h = data.length * 21
+        let h = data.length * 22
         let p = 1
 
         var plt = d3.select("#plt")
@@ -91,7 +91,7 @@ function barPlot() {
                 return d.democrat_margin_percent < 0 ? w / 2 + (parseFloat(d.democrat_margin_percent) * 200) : w / 2 
             })
             .attr("y", function(d, i) {
-                return i * 20
+                return i * 22
             })
             .attr("height", function(d, i) {
                 return 20
@@ -101,6 +101,33 @@ function barPlot() {
             })
             .attr("class", function(d) {
                 return d.democrat_margin_percent > 0 ? "barplot-dem-county-win" : "barplot-gop-county-win"
-            })        
+            })
+        
+        plt.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("x", 0)
+            .attr("y", function (d, i) {
+                return ((i + 1) * 22) - 5
+            })
+            .text(function (d) {
+                return d.county
+            })
+
+        plt.selectAll("line")
+            .data(data)
+            .enter()
+            .append("line")
+            .attr("x1", 0)
+            .attr("y1", function (d, i) {
+                return i * 22
+            })
+            .attr("x2", 500)
+            .attr("y2", function (d, i) {
+                return i * 22
+            })            
+            .attr("style", "stroke:black;stroke-width:.1")
+       
     })
 }

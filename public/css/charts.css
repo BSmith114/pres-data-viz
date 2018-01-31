@@ -1,13 +1,13 @@
 .barplot-dem-county-win {
     fill: #9cc0e3;
-    stroke-width: 1px;
-    stroke: black; 
+    /* stroke-width: 1px; */
+    /* stroke: black;  */
 }
 
 .barplot-gop-county-win {
     fill: #e99d98;
-    stroke-width: 1px;
-    stroke: black;    
+    /* stroke-width: 1px; */
+    /* stroke: black;     */
 }
 
 .barplot-gop-county-flip {

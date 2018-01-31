@@ -18,6 +18,7 @@ function getStates(callback) {
         data.forEach(function(state) {
             states.append($('<option>').text(state))
         })
+        getStateResults();
         getCounties();
     })
 }
@@ -31,7 +32,7 @@ function getCounties() {
         data.forEach(function(county) {
             counties.append($('<option>').text(county))
         })
-        getCountyResultsByState()
+        // getCountyResultsByState()
     })
 }
 
