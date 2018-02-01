@@ -74,7 +74,7 @@ function barPlot() {
 
     // posts data
     $.post('/api/get-state-results-by-county', {state: state, election: election}, function(data) {
-        let w = 500
+        let w = 400
         let h = data.length * 22
         let p = 1
 
@@ -82,8 +82,13 @@ function barPlot() {
             .append("svg")
             .attr("height", h)
             .attr("width", w)
+            .attr("class", "barplot")
 
-        plt.selectAll("rect")
+        var bars = plt.append("g").attr("class", "bars")
+        var dtally = plt.append("g").attr("class", "dtally")
+        var rtally = plt.append("g").attr("class", "rtally")
+
+        bars.selectAll("rect")
             .data(data)
             .enter()
             .append("rect")
@@ -103,7 +108,7 @@ function barPlot() {
                 return d.democrat_margin_percent > 0 ? "barplot-dem-county-win" : "barplot-gop-county-win"
             })
         
-        plt.selectAll("text")
+        bars.selectAll("text")
             .data(data)
             .enter()
             .append("text")
@@ -114,6 +119,31 @@ function barPlot() {
             .text(function (d) {
                 return d.county
             })
+
+        dtally.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("x", (w / 2) + 10)
+            .attr("y", function (d, i) {
+                return ((i + 1) * 22) - 5
+            })
+            .text(function (d) {
+                return parseInt(d.democrat).toLocaleString()
+            })            
+
+        rtally.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("x", (w / 2) - 10)
+            .attr("y", function (d, i) {
+                return ((i + 1) * 22) - 5
+            })
+            .attr("style", "text-anchor:end")
+            .text(function (d) {
+                return parseInt(d.republican).toLocaleString()
+            })                  
 
         plt.selectAll("line")
             .data(data)
