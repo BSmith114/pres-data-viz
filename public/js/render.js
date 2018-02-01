@@ -3,10 +3,11 @@ window.addEventListener('load', function() {
         $('#elections').change(function() {
             getStateResults()
         });
-        // $('#states').change(function() {
-        //     getCounties()
-        //     getCountyResultsByState()
-        // });
+        $('#states').change(function() {
+            getCounties()
+            getCountyResultsByState()
+            barPlot();            
+        });
         getElections();
         getStates();
         
