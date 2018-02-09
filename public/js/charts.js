@@ -63,23 +63,25 @@ function scatterPlot() {
 
 }
 
-function barPlot() {
+function barPlot(election, state) {
+
+    // get values from selections for params
+    election = election || $('#elections option:selected').text()
+    state = state || $('#states option:selected').text()
+
     // empties current chart
     let plt = $('#plt').empty()
     plt.empty()
 
     $('<h2>', {
-        text: "County vote",
+        text: state + " county vote",
         class: "text-center"        
     }).appendTo(plt);
 
 
-    // get values from selections for params
-    let election = $('#elections option:selected').text()
-    let state = $('#states option:selected').text()
-
     // posts data
     $.post('/api/get-state-results-by-county', {state: state, election: election}, function(data) {
+        
         let w = 400
         let h = data.length * 22
         let p = 1
