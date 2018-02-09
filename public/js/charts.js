@@ -68,6 +68,12 @@ function barPlot() {
     let plt = $('#plt').empty()
     plt.empty()
 
+    $('<h2>', {
+        text: "County vote",
+        class: "text-center"        
+    }).appendTo(plt);
+
+
     // get values from selections for params
     let election = $('#elections option:selected').text()
     let state = $('#states option:selected').text()

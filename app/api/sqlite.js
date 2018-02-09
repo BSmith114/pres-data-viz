@@ -1,3 +1,4 @@
+"use strict";
 const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
 
@@ -20,7 +21,7 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }            
-            elections = [];
+            let elections = [];
             row.forEach(data => {
                 elections.push(data.election)
             });
@@ -36,7 +37,7 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }            
-            states = []
+            let states = []
             row.forEach(data => {
                 states.push(data.state)
             });
@@ -56,7 +57,7 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }
-            counties = []
+            let counties = []
             row.forEach(data => {
                 counties.push(data.county)
             });            
