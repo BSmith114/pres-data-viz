@@ -84,18 +84,19 @@ function getStateResults(election) {
                     // console.log(el.dataset.election)
                     barPlot(el.dataset.election, el.dataset.state);
                 })
-                $('#state-results-table > tbody').append(row)
-                barPlot()
+                $('#state-results-table > tbody').append(row)                
             })
         })
     })
 }
 
-function getCountyResultsByState() {
+function getCountyResultsByState(election, state) {
     // get values from selections for params
-    let election = $('#elections option:selected').text()
-    let state = $('#states option:selected').text()
+    election = election || $('#elections option:selected').text()
+    state = state ||  $('#states option:selected').text()
     
+    console.log(election, state)
+
     // load html results table snippet 
     $('#county-results').load('/snippets/results-table.html')
 

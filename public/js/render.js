@@ -12,6 +12,6 @@ window.addEventListener('load', function() {
         });
         getElections();
         getStates();
-        
+        barPlot(2000, "Alabama")
     })           
 });
