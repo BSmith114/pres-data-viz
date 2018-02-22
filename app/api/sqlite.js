@@ -104,7 +104,7 @@ module.exports = {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
-            }
+            }            
             res.status(200).send(row)            
         });
         db.close()

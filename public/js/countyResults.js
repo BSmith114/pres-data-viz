@@ -15,8 +15,13 @@ function getStates(callback) {
     let states = $('#states')
     states.empty()
     $.get('/api/get-states', function(data) {
+        let i = 0
         data.forEach(function(state) {
-            states.append($('<option>').text(state))
+            i++
+            states.append($('<option>', {
+                text: state,
+                value: i
+            })) //.text(state))
         })
         getStateResults();
         getCounties();
@@ -51,12 +56,15 @@ function getStateResults(election) {
         tbl.empty()
 
         $.post('/api/get-state-results', {election: election}, function(data) {
+            let i = 0
             data.forEach(function(result) {
+                i++
                 let row = $('<tr>', {
                     id: result.state.toLowerCase() + '-results',
                     class: "county",
                     "data-state": result.state,
                     "data-election": election,
+                    "data-value": i,
                     css: {
                         cursor: "pointer"
                     }
@@ -83,6 +91,8 @@ function getStateResults(election) {
                     let el = $(this).get(0);
                     // console.log(el.dataset.election)
                     barPlot(el.dataset.election, el.dataset.state);
+                    $('#states').val(el.dataset.value)
+                    getCounties()
                 })
                 $('#state-results-table > tbody').append(row)                
             })
@@ -94,8 +104,6 @@ function getCountyResultsByState(election, state) {
     // get values from selections for params
     election = election || $('#elections option:selected').text()
     state = state ||  $('#states option:selected').text()
-    
-    console.log(election, state)
 
     // load html results table snippet 
     $('#county-results').load('/snippets/results-table.html')
