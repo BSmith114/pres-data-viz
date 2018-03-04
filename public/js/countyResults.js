@@ -49,7 +49,7 @@ function getStateResults(election) {
     // // load html results table snippet 
     $('#state-results').load('/snippets/state-results-table.html', function() {
 
-        $('#vote-by-state-header').text(election + ' state results')
+        $('#vote-by-state-header').text(election + ' State Results')
 
         // empties the table 
         let tbl = $('#state-results-table > tbody')
