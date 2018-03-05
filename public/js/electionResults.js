@@ -36,8 +36,7 @@ function getCounties() {
     $.get('/api/get-counties?state=' + encodeURI(state), function(data) {
         data.forEach(function(county) {
             counties.append($('<option>').text(county))
-        })
-        // getCountyResultsByState()
+        })        
     })
 }
 

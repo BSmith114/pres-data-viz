@@ -3,15 +3,16 @@ window.addEventListener('load', function() {
         $('#elections').change(function() {
             getStateResults()
             // getCountyResultsByState()
-            barPlot()
+            // barPlot()
         });
         $('#states').change(function() {
             getCounties()
             // getCountyResultsByState()
-            barPlot();            
+            // barPlot();            
         });
         getElections();
         getStates();
-        barPlot(2000, "Alabama")
+        buildMap();
+        // barPlot(2000, "Alabama")
     })           
 });

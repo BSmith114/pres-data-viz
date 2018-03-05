@@ -18,9 +18,7 @@ function buildMap() {
 
     var path = d3.geoPath().projection(d3.geoAlbersUsa());
 
-    // http://eric.clst.org/tech/usgeojson/ 
-
-    d3.json('../data/counties.json', function(json) {
+    d3.json('../data/states.json', function(json) {
         var svg = d3.select("#national-map")
             .append("svg")
             .attr("width", "100%")
