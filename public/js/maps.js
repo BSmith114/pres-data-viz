@@ -29,7 +29,7 @@ function buildMap(results) {
         
         for (var i = 0; i < states.features.length; i++) {
             for (var j = 0; j < results.length; j++) {
-                if (states.features[i].properties.name === results[j].state && results[i].republican > results[i].democrat) {
+                if (states.features[i].properties.NAME === results[j].state && results[j].republican > results[j].democrat) {
                     states.features[i].properties.winner = 'R'
                 }               
             }
