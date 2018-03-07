@@ -56,6 +56,7 @@ function getStateResults(election) {
 
         $.post('/api/get-state-results', {election: election}, function(data) {
             let i = 0
+            buildMap(data)
             data.forEach(function(result) {
                 i++
                 let row = $('<tr>', {
