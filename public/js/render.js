@@ -8,5 +8,5 @@ window.addEventListener('load', function() {
         });
         getElections();
         getStates();
-    })           
+    });           
 });

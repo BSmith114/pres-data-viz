@@ -50,3 +50,10 @@ function buildMap(results) {
         }
     ) 
 }
+
+var test = function() {
+    d3.queue()
+        .defer($.get, '/api/get-elections')//, function(data) {return data})
+        .defer(d3.json, '../data/states.json')//, function(states) {return states})
+        .await(function(error, a,b ) { console.log(a, b); });
+}
