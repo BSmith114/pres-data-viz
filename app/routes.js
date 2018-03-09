@@ -15,13 +15,13 @@ router.route('/api/get-counties')
 	.get(api.getCounties)	
 
 router.route('/api/get-national-results')
-	.post(api.getNationalResults)		
+	.get(api.getNationalResults)		
 
 router.route('/api/get-state-results')
-	.post(api.getStateResults)	
+	.get(api.getStateResults)	
 
 router.route('/api/get-state-results-by-county')
-	.post(api.getStateResultsbyCounty)
+	.get(api.getStateResultsbyCounty)
 
 /* Website Routes */
 router.get('*', function(req, res) {

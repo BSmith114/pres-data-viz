@@ -44,19 +44,22 @@ function getStateResults(election) {
 
     // get values from selections for params
     election = election || $('#elections option:selected').text()
+
+    // build state electoral map
+    let eMap = new electoralMap(election);
+    eMap.buildMap('/api/get-state-results?election=' + election, eMap.stateGeoJson, eMap.stateMap)
     
-    // // load html results table snippet 
+    // load html results table snippet 
     $('#state-results').load('/snippets/state-results-table.html', function() {
 
         $('#vote-by-state-header').text(election + ' State Results')
 
         // empties the table 
         let tbl = $('#state-results-table > tbody')
-        tbl.empty()
+        tbl.empty()       
 
-        $.post('/api/get-state-results', {election: election}, function(data) {
-            let i = 0
-            buildMap(data)
+        $.get('/api/get-state-results', {election: election}, function(data) {
+            let i = 0            
             data.forEach(function(result) {
                 i++
                 let row = $('<tr>', {
@@ -89,8 +92,7 @@ function getStateResults(election) {
                 }))
                 row.click( function() {
                     let el = $(this).get(0);
-                    // console.log(el.dataset.election)
-                    barPlot(el.dataset.election, el.dataset.state);
+                    // console.log(el.dataset.election)                    
                     $('#states').val(el.dataset.value)
                     getCounties()
                 })

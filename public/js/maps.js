@@ -1,40 +1,45 @@
-// import { stat } from "fs";
+function electoralMap(election) {
 
-var res = [{state:"Alabama"}, {state:"Arkansas"}]
+    // sets election year
+    this.election = election;
 
-function buildMap(results) {
+    // geoJSON locations
+    this.stateGeoJson = '../data/states.json';
+    this.countyGeoJson = '../data/counties.json';
     
-    $("#national-map").empty()
+    this.stateMap = function (error, results, states) {
+    
+        $("#national-map").empty()
 
-    var diminesions = {
-        height: 500,
-        width: 1000
-    }
+        var diminesions = {
+            height: 500,
+            width: 1000
+        }
 
-    var padding = {
-        top: 10,
-        bottom: 10,
-        left: 10,
-        right: 10
-    }
+        var padding = {
+            top: 10,
+            bottom: 10,
+            left: 10,
+            right: 10
+        }
 
-    var path = d3.geoPath().projection(d3.geoAlbersUsa());
+        // merge states json with results from api call
+        for (var i = 0; i < states.features.length; i++) {
+            for (var j = 0; j < results.length; j++) {
+                if (states.features[i].properties.NAME === results[j].state && results[j].republican > results[j].democrat) {
+                    states.features[i].properties.winner = 'R'
+                    break;
+                }               
+            }
+        }
 
-    d3.json('../data/states.json', function(states) {
+        var path = d3.geoPath().projection(d3.geoAlbersUsa());
+        
         var svg = d3.select("#national-map")
             .append("svg")
             .attr("width", "100%")
             .attr("height", "100%")
             .attr("viewBox", "0 0 " + diminesions.width + " " + diminesions.height)
-        
-        for (var i = 0; i < states.features.length; i++) {
-            for (var j = 0; j < results.length; j++) {
-                if (states.features[i].properties.NAME === results[j].state && results[j].republican > results[j].democrat) {
-                    states.features[i].properties.winner = 'R'
-                }               
-            }
-        }
-
 
         svg.selectAll("path")
             .data(states.features)
@@ -46,14 +51,14 @@ function buildMap(results) {
                     return "#e99d98"
                 }
                 else return "#9cc0e3"
-            })  
-        }
-    ) 
+            })           
+    }
+    
+    this.buildMap = function(dataURL, mapURL, func) {
+        d3.queue()
+            .defer(d3.json, dataURL)
+            .defer(d3.json, mapURL)
+            .await(func);
+    }
 }
 
-var test = function() {
-    d3.queue()
-        .defer($.get, '/api/get-elections')//, function(data) {return data})
-        .defer(d3.json, '../data/states.json')//, function(states) {return states})
-        .await(function(error, a,b ) { console.log(a, b); });
-}

@@ -78,7 +78,7 @@ module.exports = {
             where election = ?
             group by
                 election;`
-        db.all(sql, [req.body.election], (err, row) => {
+        db.all(sql, [req.query.election], (err, row) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
@@ -100,7 +100,7 @@ module.exports = {
             where election = ?
             group by
                 state;`
-        db.all(sql, [req.body.election], (err, row) => {
+        db.all(sql, [req.query.election], (err, row) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
@@ -115,6 +115,7 @@ module.exports = {
         let sql = `
             select 
                 county
+                ,fips
                 ,democrat
                 ,republican
                 ,other
@@ -124,7 +125,7 @@ module.exports = {
                 ,democrat_margin_percent
             from vote 
             where state = ? and election = ?;`
-        db.all(sql, [req.body.state, req.body.election], (err, row) => {
+        db.all(sql, [req.query.state, req.query.election], (err, row) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
