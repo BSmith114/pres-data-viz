@@ -21,7 +21,7 @@ router.route('/api/get-state-results')
 	.get(api.getStateResults)	
 
 router.route('/api/get-state-results-by-county')
-	.get(api.getStateResultsbyCounty)
+	.get(api.getCountyResults)
 
 /* Website Routes */
 router.get('*', function(req, res) {

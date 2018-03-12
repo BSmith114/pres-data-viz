@@ -29,7 +29,10 @@ function electoralMap(election) {
                 if (states.features[i].properties.NAME === results[j].state && results[j].republican > results[j].democrat) {
                     states.features[i].properties.winner = 'R'
                     break;
-                }               
+                } else if (states.features[i].properties.NAME === results[j].state && results[j].republican < results[j].democrat) {
+                    states.features[i].properties.winner = 'D'
+                    break;
+                }              
             }
         }
 
@@ -49,8 +52,9 @@ function electoralMap(election) {
             .attr("fill", function(d) {
                 if (d.properties.winner === 'R') {
                     return "#e99d98"
+                } else if (d.properties.winner === 'D') {
+                    return "#9cc0e3"
                 }
-                else return "#9cc0e3"
             })           
     }
     

@@ -110,8 +110,8 @@ module.exports = {
         db.close()
     },    
 
-    getStateResultsbyCounty: function(req, res, next ) {
-        let db = getdb()
+    getCountyResults: function(req, res, next ) {
+        let db = getdb()        
         let sql = `
             select 
                 county
