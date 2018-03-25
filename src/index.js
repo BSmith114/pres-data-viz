@@ -1,4 +1,4 @@
-var elex = require('./electionResults')
+var elex = require('./elections/electionResults')
 
 window.addEventListener('load', function() {
     $('#params').load('/snippets/params.html', function() {

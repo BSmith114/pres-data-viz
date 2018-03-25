@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router();
 var bodyParser = require('body-parser');
-var api = require('./api/sqlite')
+var api = require('./api/elections')
 
 /* API Routes using SQlite */
 

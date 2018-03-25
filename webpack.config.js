@@ -1,13 +1,14 @@
 const webpack = require('webpack'); //to access built-in plugins
 const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const config = {
-  entry: './app/app.js',
+  mode: "development",
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './public/js'),
     filename: 'bundle.js'
   },
-  mode: "development",
   module: {
     rules: [
       {
@@ -15,14 +16,23 @@ const config = {
         use: 'raw-loader'
       },
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
+        ]
       }
     ]
-  },
+  }
 };
 
 module.exports = config;

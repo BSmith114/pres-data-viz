@@ -5,7 +5,6 @@ var methodOverride = require('method-override');
 var routes = require('./app/routes');
 
 // configuration
-var db = require('./config/db')
 var port = process.env.PORT || 3000;
 // const pool = new pg.Pool(db.dbConfig)
 
