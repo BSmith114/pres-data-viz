@@ -133,5 +133,30 @@ module.exports = {
             res.status(200).send(row)            
         });
         db.close()
+    },
+
+    getPresidentialElections: function(req, res, next) {
+        let db = getdb();
+        let sql = `
+            select 
+                election
+                ,state
+                ,county
+                ,fips
+                ,democrat
+                ,republican
+                ,other
+            from vote 
+            limit 100`
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw(err)
+                res.status(400).send(err)
+            }
+            rows.forEach(data => {
+                console.log(data)
+            })
+            res.send(200)
+        })        
     }
 };

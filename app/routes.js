@@ -23,6 +23,9 @@ router.route('/api/get-state-results')
 router.route('/api/get-state-results-by-county')
 	.get(api.getCountyResults)
 
+router.route('/api/get-election-results')
+	.get(api.getPresidentialElections)
+
 /* Website Routes */
 router.get('*', function(req, res) {
 	res.sendfile('./public/index.html')	
