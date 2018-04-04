@@ -13,7 +13,7 @@ let getdb = function () {
 
 module.exports = {
 
-    getElections: function (req, res, next) {
+    getElections: (req, res, next) => {
         // add error handling for failed db connex
         let db = getdb()
         db.all(`select distinct election from vote;`, [], (err, row) => {
@@ -25,14 +25,20 @@ module.exports = {
             row.forEach(data => {
                 elections.push(data.election)
             });
-            res.status(200).send(elections);
-            return(elections)
+            if (!req.query.p) {
+                res.status(200).send(elections);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(elections)
+                })
+            }
         })        
         db.close()
         
     },
 
-    getStates: function (req, res, next) {
+    getStates: (req, res, next) => {
         let db = getdb()
         db.all(`select distinct state from vote order by state;`, [], (err, row) => {
             if (err) {
@@ -43,13 +49,19 @@ module.exports = {
             row.forEach(data => {
                 states.push(data.state)
             });
-            res.status(200).send(states);
-            return(states)
+            if (!req.query.p) {
+                res.status(200).send(states);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(states)
+                })
+            }
         })
         db.close()
     },
 
-    getCounties: function (req, res, next) {
+    getCounties: (req, res, next) => {
         let db = getdb()
         let sql = `
             select distinct county
@@ -64,13 +76,19 @@ module.exports = {
             row.forEach(data => {
                 counties.push(data.county)
             });            
-            res.status(200).send(counties)
-            return(counties)
+            if (!req.query.p) {
+                res.status(200).send(counties);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(counties)
+                })
+            }
         })
         db.close()
     },
 
-    getNationalResults: function(req, res, next ) {
+    getNationalResults: (req, res, next ) => {
         let db = getdb()
         let sql = `
             select 
@@ -87,13 +105,19 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }
-            res.status(200).send(rows) 
-            return(rows)
+            if (!req.query.p) {
+                res.status(200).send(rows);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(rows)
+                })
+            }
         });
         db.close()
     },      
 
-    getStateResults: function(req, res, next ) {
+    getStateResults: (req, res, next ) => {
         let db = getdb()
         let sql = `
             select 
@@ -110,13 +134,19 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }            
-            res.status(200).send(rows)            
-            return(rows)
+            if (!req.query.p) {
+                res.status(200).send(rows);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(rows)
+                })
+            }
         });
         db.close()
     },    
 
-    getCountyResults: function(req, res, next ) {
+    getCountyResults: (req, res, next ) => {
         let db = getdb()        
         let sql = `
             select 
@@ -136,12 +166,19 @@ module.exports = {
                 throw(err)
                 res.status(400).send(err)
             }
-            res.status(200).send(rows) 
+            if (!req.query.p) {
+                res.status(200).send(rows);
+            }
+            else {
+                return new Promise((resolve, reject) => {
+                    resolve(rows)
+                })
+            }
         });
         db.close()
     },
 
-    getPresidentialElections: function(req, res, next) {
+    getPresidentialElections: (req, res, next) => {
         let db = getdb();
         let vote = {}
         let national = {}
@@ -169,7 +206,7 @@ module.exports = {
             res.status(200).send(vote)
         })        
     },
-    test: function(req, res, next) {        
+    test: (req, res, next) => {        
         module.exports.getElections(req, res, next)
         .then(function (result) {
             console.log(result)
