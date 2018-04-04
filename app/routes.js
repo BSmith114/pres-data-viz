@@ -24,7 +24,8 @@ router.route('/api/get-state-results-by-county')
 	.get(api.getCountyResults)
 
 router.route('/api/get-election-results')
-	.get(api.getPresidentialElections)
+	// .get(api.getPresidentialElections)
+	.get(api.test)
 
 /* Website Routes */
 router.get('*', function(req, res) {

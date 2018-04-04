@@ -26,8 +26,10 @@ module.exports = {
                 elections.push(data.election)
             });
             res.status(200).send(elections);
-        })
+            return(elections)
+        })        
         db.close()
+        
     },
 
     getStates: function (req, res, next) {
@@ -42,6 +44,7 @@ module.exports = {
                 states.push(data.state)
             });
             res.status(200).send(states);
+            return(states)
         })
         db.close()
     },
@@ -62,6 +65,7 @@ module.exports = {
                 counties.push(data.county)
             });            
             res.status(200).send(counties)
+            return(counties)
         })
         db.close()
     },
@@ -78,12 +82,13 @@ module.exports = {
             where election = ?
             group by
                 election;`
-        db.all(sql, [req.query.election], (err, row) => {
+        db.all(sql, [req.query.election], (err, rows) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
             }
-            res.status(200).send(row)            
+            res.status(200).send(rows) 
+            return(rows)
         });
         db.close()
     },      
@@ -100,12 +105,13 @@ module.exports = {
             where election = ?
             group by
                 state;`
-        db.all(sql, [req.query.election], (err, row) => {
+        db.all(sql, [req.query.election], (err, rows) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
             }            
-            res.status(200).send(row)            
+            res.status(200).send(rows)            
+            return(rows)
         });
         db.close()
     },    
@@ -125,18 +131,21 @@ module.exports = {
                 ,democrat_margin_percent
             from vote 
             where state = ? and election = ?;`
-        db.all(sql, [req.query.state, req.query.election], (err, row) => {
+        db.all(sql, [req.query.state, req.query.election], (err, rows) => {
             if (err) {
                 throw(err)
                 res.status(400).send(err)
             }
-            res.status(200).send(row)            
+            res.status(200).send(rows) 
         });
         db.close()
     },
 
     getPresidentialElections: function(req, res, next) {
         let db = getdb();
+        let vote = {}
+        let national = {}
+        let states = []
         let sql = `
             select 
                 election
@@ -154,9 +163,17 @@ module.exports = {
                 res.status(400).send(err)
             }
             rows.forEach(data => {
-                console.log(data)
+                states.push(data)
             })
-            res.send(200)
+            vote.states = states
+            res.status(200).send(vote)
         })        
+    },
+    test: function(req, res, next) {        
+        module.exports.getElections(req, res, next)
+        .then(function (result) {
+            console.log(result)
+            console.log(module.exports.getStates(req, res, next))
+        })
     }
 };
