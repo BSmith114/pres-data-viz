@@ -11,6 +11,8 @@ var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/public')); 
 app.use(methodOverride('X-HTTP-Method-Override')); 
 
+app.set('view engine', 'pug')
+
 // get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json());  
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 

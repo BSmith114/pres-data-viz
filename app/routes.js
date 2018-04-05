@@ -27,6 +27,11 @@ router.route('/api/get-election-results')
 	// .get(api.getPresidentialElections)
 	.get(api.test)
 
+router.get('/pug', (req, res) => {
+	res.render('index')
+})
+	
+
 /* Website Routes */
 router.get('*', function(req, res) {
 	res.sendfile('./public/index.html')	
