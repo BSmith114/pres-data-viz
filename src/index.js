@@ -1,14 +1,7 @@
 var elex = require('./elections/electionResults')
 
 window.addEventListener('load', function() {
-    $('#params').load('/snippets/params.html', function() {
-        $('#elections').change(function() {
-            elex.getStateResults()
-        });
-        $('#states').change(function() {
-            elex.getCounties()        
-        });
-        elex.getElections();
-        elex.getStates();
-    });           
-});
+    let election = window.location.href.split('/').pop()
+    console.log(election)
+    elex.buildElectoralMap(election)
+});           

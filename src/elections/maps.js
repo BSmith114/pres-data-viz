@@ -11,7 +11,7 @@ module.exports = {
 
         this.stateMap = function (error, results, states) {
 
-            $("#national-map").empty()
+            // $("#national-map").empty()
 
             var diminesions = {
                 height: 500,

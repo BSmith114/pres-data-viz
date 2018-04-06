@@ -1,0 +1,34 @@
+extends _layout.pug
+
+mixin stateResult(state, dem, rep, other)
+    tr
+        td= state
+        if dem > rep
+            td.dem-county-win= parseInt(dem).toLocaleString()
+        else 
+            td= parseInt(dem).toLocaleString()
+        if rep > dem 
+            td.gop-county-win= parseInt(rep).toLocaleString()
+        else 
+            td= parseInt(rep).toLocaleString()
+        td= parseInt(other).toLocaleString()
+
+block content    
+    .container
+        h1.text-center #{election} Presidential Election 
+        #maps.row
+            #national-map.col-lg-8.text-center
+            #state-results.col-lg-4.text-center
+                h2#vote-by-state-header.text-center Results by State
+                table#state-results-table.table.table-condensed.small(style="white-space: pre-wrap")
+                    thead(style="font-weight:bold")
+                        tr
+                            td State
+                            td Democrat
+                            td Republican
+                            td Other
+                    tbody                        
+                        each result in results
+                            +stateResult(result.state, result.democrat, result.republican, result.other)
+        .row
+            #plt.col-lg-4.text-center

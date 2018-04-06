@@ -1,7 +1,9 @@
-var express = require('express')
+var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var api = require('./api/elections')
+var api = require('./api/elections');
+var ctrl = require('./controllers/presElections')
+var pug = require('pug');
 
 /* API Routes using SQlite */
 
@@ -27,14 +29,22 @@ router.route('/api/get-election-results')
 	// .get(api.getPresidentialElections)
 	.get(api.test)
 
-router.get('/pug', (req, res) => {
-	res.render('index')
+router.get('/:election', (req, res) => {	
+	ctrl.getStateResults(req.params.election)
+	.then((stateResults) => {
+		res.render('elections', {
+			title: 'Presidential Elections Results',
+			election: req.params.election,
+			results: stateResults
+		})
+	})
 })
-	
 
-/* Website Routes */
-router.get('*', function(req, res) {
-	res.sendfile('./public/index.html')	
-});
+// Website routes
+router.get('*', (req, res) => {
+	res.render('index', {
+		title: "Election Results"
+	})
+})
 
 module.exports = router;
