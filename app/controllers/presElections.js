@@ -13,6 +13,29 @@ let getdb = function () {
 
 module.exports = {
 
+    getNationalResults: (election) => {
+        return new Promise((resolve, reject) => {
+            let db = getdb()
+            let sql = `
+                select                     
+                    sum(democrat) as democrat
+                    ,sum(republican) as republican
+                    ,sum(other) as other
+                from vote 
+                where election = ?`
+            db.all(sql, [election], (err, rows) => {
+                if (err) {
+                    throw(err)
+                    reject(err)
+                }            
+                else {
+                    resolve(rows)
+                }
+            });
+            db.close()
+        })
+    },     
+
     getStateResults: (election) => {
         return new Promise((resolve, reject) => {
             let db = getdb()
@@ -29,7 +52,7 @@ module.exports = {
             db.all(sql, [election], (err, rows) => {
                 if (err) {
                     throw(err)
-                    res.status(400).send(err)
+                    reject(err)
                 }            
                 else {
                     resolve(rows)

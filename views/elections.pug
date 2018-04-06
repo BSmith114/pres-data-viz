@@ -16,6 +16,21 @@ mixin stateResult(state, dem, rep, other)
 block content    
     .container
         h1.text-center #{election} Presidential Election 
+        #candidates.row
+        .col-lg-4.text-center
+        .col-lg-4.text-center
+            table#national-results-table.table.table-condensed(style="white-space: pre-wrap")
+                thead(style="font-weight:bold")
+                    tr
+                        td Democrat
+                        td Republican
+                        td Other
+                tbody 
+                    tr
+                        td 2,399,999
+                        td 4,333,333
+                        td 555
+        .col-lg-4.text-center
         #maps.row
             #national-map.col-lg-8.text-center
             #state-results.col-lg-4.text-center
