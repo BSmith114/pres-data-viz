@@ -51,6 +51,7 @@ module.exports = {
                 .enter()
                 .append("path")
                 .attr("d", path)
+                .attr("stroke", "black")
                 .attr("fill", function (d) {
                     if (d.properties.winner === 'R') {
                         return "#e99d98"

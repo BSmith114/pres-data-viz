@@ -30,12 +30,18 @@ router.route('/api/get-election-results')
 	.get(api.test)
 
 router.get('/:election', (req, res) => {	
-	ctrl.getStateResults(req.params.election)
+	let electionResults = {}
+	ctrl.getNationalResults(req.params.election)
+	.then((nationalResults) => {
+		electionResults.nationalResults = nationalResults
+		return ctrl.getStateResults(req.params.election)
+	})	
 	.then((stateResults) => {
+		electionResults.stateResults = stateResults
 		res.render('elections', {
 			title: 'Presidential Elections Results',
 			election: req.params.election,
-			results: stateResults
+			results: electionResults
 		})
 	})
 })
