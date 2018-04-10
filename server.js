@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var routes = require('./app/routes');
+require('dotenv').config()
 
 // configuration
 var port = process.env.PORT || 3000;

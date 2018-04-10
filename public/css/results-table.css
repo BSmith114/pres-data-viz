@@ -26,3 +26,7 @@
         #e99d98 20px        
     )
 }
+
+.state:hover {
+    stroke-width: 4px;
+}

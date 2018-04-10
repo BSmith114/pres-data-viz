@@ -16,10 +16,11 @@ mixin stateResultTbl(state, dem, rep, other)
 block content    
     .container
         h1.text-center #{election} Presidential Election 
+        #react 
         #candidates.row
         //- .col-lg-3.text-center
         .col-lg-6.text-center
-            table#national-results-table.table.table-condensed(style="white-space: pre-wrap")
+            table#national-results-table.table.table-condensed.small(style="white-space: pre-wrap")
                 thead(style="font-weight:bold")
                     tr
                         td

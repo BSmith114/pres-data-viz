@@ -50,6 +50,7 @@ module.exports = {
                 .data(states.features)
                 .enter()
                 .append("path")
+                .classed("state", true)
                 .attr("d", path)
                 .attr("stroke", "black")
                 .attr("fill", function (d) {
