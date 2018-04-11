@@ -3,3 +3,11 @@ extends _layout.pug
 block content    
     .container
         h1.text-center  Presidential Election Results 
+    button Push for 2004
+    #app
+        table.table.table-condensed.small 
+            tr(v-for="result in results") 
+                td {{result.state}}
+                td {{result.democrat.toLocaleString()}}
+                td {{result.republican}}
+
