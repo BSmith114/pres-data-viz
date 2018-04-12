@@ -71,6 +71,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/elections/components.js":
+/*!*************************************!*\
+  !*** ./src/elections/components.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("Vue.component('row', {\r\n    props: ['result'],\r\n    template: `\r\n    \r\n        <tr>\r\n            <td> {{ result.state }} </td>\r\n            <td> {{ result.democrat }} </td>\r\n            <td> {{ result.republican }} </td>\r\n            <td> {{ result.other }} </td>\r\n        </tr>\r\n    \r\n    `\r\n  })\r\n\r\nvar resultsTableVm = new Vue({\r\n    el: '#app',\r\n    data: {\r\n        results: []\r\n    }\r\n})\r\n\r\nfetch('/api/get-state-results?election=2000')\r\n.then((response) => {\r\n    return response.json()\r\n})\r\n.then((stateResults) => {    \r\n    resultsTableVm.results = stateResults\r\n})\r\n\n\n//# sourceURL=webpack:///./src/elections/components.js?");
+
+/***/ }),
+
 /***/ "./src/elections/electionResults.js":
 /*!******************************************!*\
   !*** ./src/elections/electionResults.js ***!
@@ -100,7 +111,7 @@ eval("module.exports = {\r\n\r\n    electoralMap: function (election) {\r\n\r\n 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var elex = __webpack_require__(/*! ./elections/electionResults */ \"./src/elections/electionResults.js\")\r\n\r\nwindow.addEventListener('load', function () {\r\n    let election = window.location.href.split('/').pop()\r\n    elex.buildElectoralMap(election)\r\n});\r\n\r\nvar vm = new Vue({\r\n    el: '#app',\r\n    data: {\r\n        results: []\r\n    }\r\n})\r\n\r\nfetch('/api/get-state-results?election=2000')\r\n.then((response) => {\r\n    return response.json()\r\n})\r\n.then((stateResults) => {\r\n    console.log(stateResults)\r\n    vm.results = stateResults\r\n})\r\n\r\nsetTimeout(function() {\r\n    fetch('/api/get-state-results?election=2004')\r\n    .then((response) => {\r\n        return response.json()\r\n    })\r\n    .then((stateResults) => {\r\n        console.log(stateResults)\r\n        vm.results = stateResults\r\n    })\r\n}, 3000)\r\n\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("var elex = __webpack_require__(/*! ./elections/electionResults */ \"./src/elections/electionResults.js\")\r\n__webpack_require__(/*! ./elections/components */ \"./src/elections/components.js\")\r\n\r\nwindow.addEventListener('load', function () {\r\n    let election = window.location.href.split('/').pop()\r\n    elex.buildElectoralMap(election)\r\n});\r\n\r\n\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

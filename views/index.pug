@@ -2,12 +2,14 @@ extends _layout.pug
 
 block content    
     .container
-        h1.text-center  Presidential Election Results 
-    button Push for 2004
-    #app
-        table.table.table-condensed.small 
-            tr(v-for="result in results") 
-                td {{result.state}}
-                td {{result.democrat.toLocaleString()}}
-                td {{result.republican}}
-
+        h1.text-center  Presidential Election Results
+        .row
+            .col-lg-4
+            #app.col-lg-4
+                table.table.table-condensed.small.text-center
+                    thead 
+                        tr 
+                            td this is a head
+                    tbody                     
+                        row(v-for="result in results" v-bind:result="result")   
+            .col-lg-4
