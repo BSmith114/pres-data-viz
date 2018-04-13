@@ -47,10 +47,15 @@ router.get('/:election', (req, res) => {
 })
 
 // Website routes
-router.get('*', (req, res) => {
+router.get('/', (req, res) => {
 	res.render('index', {
 		title: "Election Results"
 	})
+})
+
+// Website routes
+router.get('/test/test', (req, res) => {
+	res.sendfile('./public/test.html')
 })
 
 module.exports = router;

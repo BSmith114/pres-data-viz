@@ -10,10 +10,8 @@ html(lang="en")
         // Bootstrap Core CSS
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
         // Custom CSS
-        link(rel="stylesheet" href="css/style.css")
-        link(rel="stylesheet" href="css/results-table.css")
-        link(rel="stylesheet" href="css/charts.css")
-        // <link rel="stylesheet" href="css/results-table.css">
+        link(rel="stylesheet" href="/css/results-table.css")
+        link(rel="stylesheet" href="/css/charts.css")
         link(rel="icon" type="image/x-icon" href="favicon.ico")
         style.
             body {
@@ -45,10 +43,12 @@ html(lang="en")
                             a(href="/2004") 2004
                         li
                             a(href="/2000") 2000
+                        li
+                            a(href="/test/test") test                          
         // Page Content
         block content
         
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://d3js.org/d3.v4.min.js")
         script(src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js")
-        script(src="js/bundle.js")
+        script(src="/js/bundle.js")

@@ -1,14 +1,12 @@
 Vue.component('row', {
     props: ['result'],
-    template: `
-    
+    template: `    
         <tr>
             <td> {{ result.state }} </td>
             <td> {{ result.democrat }} </td>
             <td> {{ result.republican }} </td>
             <td> {{ result.other }} </td>
-        </tr>
-    
+        </tr>    
     `
   })
 

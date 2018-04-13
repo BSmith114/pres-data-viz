@@ -6,10 +6,10 @@ block content
         .row
             .col-lg-4
             #app.col-lg-4
-                table.table.table-condensed.small.text-center
+                table#app.table.table-condensed.small.text-center
                     thead 
                         tr 
                             td this is a head
-                    tbody                     
-                        row(v-for="result in results" v-bind:result="result")   
+                    tbody                   
+                        tr(is="row" v-for="result in results" v-bind:result="result")   
             .col-lg-4
