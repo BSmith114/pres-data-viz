@@ -1,4 +1,9 @@
-Vue.component('row', {
+Vue.component('dataPoint', {
+    props: ['result'],
+    
+})
+
+Vue.component('resultsRow', {
     props: ['result'],
     template: `    
         <tr>

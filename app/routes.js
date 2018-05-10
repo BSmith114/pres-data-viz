@@ -29,7 +29,10 @@ router.route('/api/get-election-results')
 	// .get(api.getPresidentialElections)
 	.get(api.test)
 
-router.get('/:election', (req, res) => {	
+	
+// Website routes
+// specific election
+router.get('/:election(2000|2004|2008|2012|2016)', (req, res) => {	
 	let electionResults = {}
 	ctrl.getNationalResults(req.params.election)
 	.then((nationalResults) => {
@@ -46,16 +49,20 @@ router.get('/:election', (req, res) => {
 	})
 })
 
-// Website routes
+// homepage
 router.get('/', (req, res) => {
 	res.render('index', {
 		title: "Election Results"
 	})
 })
 
-// Website routes
+// test page
 router.get('/test/test', (req, res) => {
 	res.sendfile('./public/test.html')
+})
+
+router.get('*', (req, res) => {
+	res.status(404).send("NOOOOPE")
 })
 
 module.exports = router;

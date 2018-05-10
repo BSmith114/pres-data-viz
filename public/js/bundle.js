@@ -78,7 +78,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("Vue.component('row', {\n    props: ['result'],\n    template: `    \n        <tr>\n            <td> {{ result.state }} </td>\n            <td> {{ result.democrat }} </td>\n            <td> {{ result.republican }} </td>\n            <td> {{ result.other }} </td>\n        </tr>    \n    `\n  })\n\nvar resultsTableVm = new Vue({\n    el: '#app',\n    data: {\n        results: []\n    }\n})\n\nfetch('/api/get-state-results?election=2000')\n.then((response) => {\n    return response.json()\n})\n.then((stateResults) => {    \n    resultsTableVm.results = stateResults\n})\n\n\n//# sourceURL=webpack:///./src/elections/components.js?");
+eval("Vue.component('dataPoint', {\n    props: ['result'],\n    \n})\n\nVue.component('resultsRow', {\n    props: ['result'],\n    template: `    \n        <tr>\n            <td> {{ result.state }} </td>\n            <td> {{ result.democrat }} </td>\n            <td> {{ result.republican }} </td>\n            <td> {{ result.other }} </td>\n        </tr>    \n    `\n  })\n\nvar resultsTableVm = new Vue({\n    el: '#app',\n    data: {\n        results: []\n    }\n})\n\nfetch('/api/get-state-results?election=2000')\n.then((response) => {\n    return response.json()\n})\n.then((stateResults) => {    \n    resultsTableVm.results = stateResults\n})\n\n\n//# sourceURL=webpack:///./src/elections/components.js?");
 
 /***/ }),
 
